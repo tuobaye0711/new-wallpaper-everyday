@@ -15,5 +15,5 @@ get a new wallpaper every | 每天一张新壁纸
 
 今日壁纸：
 ```
-    http://localhost/today
+    http://127.0.0.1:8888/today
 ```
