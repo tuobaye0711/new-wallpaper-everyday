@@ -10,8 +10,8 @@ app.get('/', function (req, res) {
 });
 app.get('/today', getWallpaperToday);
 
-app.listen(80, function () {
-    console.log('Example app listening on port 80!');
+app.listen(8888, function () {
+    console.log('Example app listening on port 8888!');
 });
 
 function getUri(start, number, mkt) {
