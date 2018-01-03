@@ -24,7 +24,12 @@ get a new wallpaper every | 每天一张新壁纸
 ```
 一个例子，查询en-US地区13天前的壁纸：
 ```
-    http://127.0.0.1:888/wallpaper?days_ago=13&mkt=en-US
+    http://127.0.0.1:8888/wallpaper?days_ago=13&mkt=en-US
+```
+
+随机返回一张壁纸——地区随机、日期随机（15日内）：
+```
+    http://127.0.0.1:8888/wallpaper/random
 ```
 
 欢迎使用、提意见~

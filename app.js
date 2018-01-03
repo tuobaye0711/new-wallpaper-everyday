@@ -8,7 +8,8 @@ const app = express();
 app.get('/', function (req, res) {
     res.sendfile('index.html')
 });
-app.get('/wallpaper', getWallpaper);
+app.get('/wallpaper/random', getWallpaperByRandom);
+app.get('/wallpaper', getWallpaperByCondition);
 
 app.listen(8888, function () {
     console.log('Example app listening on port 8888!');
@@ -17,23 +18,9 @@ app.listen(8888, function () {
 function getUri(start, number, mkt) {
     return 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=' + start + '&n=' + number + '&mkt=' + mkt
 }
-// function getWallpaperToday(req, res) {
-//     let uri = getUri(0, 1, 'zh-CN');
-//     request(uri, function (error, response, body) {
-//         if (!error && response.statusCode === 200) {
-//             let data = JSON.parse(body);
-//             let images = data.images;
-//             res.redirect('https://www.bing.com'+images[0].url)
-//         }else{
-//             res.send('request error!')
-//         }
-//     })
-// }
 
-function getWallpaper(req, res) {
-    let days_ago = req.query.days_ago || 0;
-    let mkt = req.query.mkt || 'zh-CN';
-    let uri;
+function getWallpaper(res, days_ago, mkt) {
+    var uri;
     if (days_ago <= 7){
         uri = getUri(days_ago, 1, mkt)
     }else {
@@ -41,11 +28,27 @@ function getWallpaper(req, res) {
     }
     request(uri, function (error, response, body) {
         if (!error && response.statusCode === 200) {
-            let data = JSON.parse(body);
-            let images = data.images;
+            var data = JSON.parse(body);
+            var images = data.images;
             res.redirect('https://www.bing.com'+images[images.length-1].url)
         }else{
             res.send('request error!')
         }
     })
+}
+
+function getRandomInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getWallpaperByCondition(req, res) {
+    var days_ago = req.query.days_ago || 0;
+    var mkt = req.query.mkt || 'zh-CN';
+    getWallpaper(res, days_ago, mkt)
+}
+
+function getWallpaperByRandom(req, res) {
+    var days_ago = getRandomInteger(0,15);
+    var mkt = getRandomInteger(0,1) ? 'zh-CN' : 'en-US';
+    getWallpaper(res, days_ago, mkt)
 }
