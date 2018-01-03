@@ -20,7 +20,7 @@ function getUri(start, number, mkt) {
 }
 
 function getWallpaper(res, days_ago, mkt) {
-    var uri;
+    let uri;
     if (days_ago <= 7){
         uri = getUri(days_ago, 1, mkt)
     }else {
@@ -28,8 +28,8 @@ function getWallpaper(res, days_ago, mkt) {
     }
     request(uri, function (error, response, body) {
         if (!error && response.statusCode === 200) {
-            var data = JSON.parse(body);
-            var images = data.images;
+            let data = JSON.parse(body);
+            let images = data.images;
             res.redirect('https://www.bing.com'+images[images.length-1].url)
         }else{
             res.send('request error!')
@@ -42,13 +42,13 @@ function getRandomInteger(min, max) {
 }
 
 function getWallpaperByCondition(req, res) {
-    var days_ago = req.query.days_ago || 0;
-    var mkt = req.query.mkt || 'zh-CN';
+    let days_ago = req.query.days_ago || 0;
+    let mkt = req.query.mkt || 'zh-CN';
     getWallpaper(res, days_ago, mkt)
 }
 
 function getWallpaperByRandom(req, res) {
-    var days_ago = getRandomInteger(0,15);
-    var mkt = getRandomInteger(0,1) ? 'zh-CN' : 'en-US';
+    let days_ago = getRandomInteger(0,15);
+    let mkt = getRandomInteger(0,1) ? 'zh-CN' : 'en-US';
     getWallpaper(res, days_ago, mkt)
 }
