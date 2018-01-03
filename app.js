@@ -6,7 +6,7 @@ const request = require('request');
 const app = express();
 
 app.get('/', function (req, res) {
-    res.send('welcome to new-wallpaper-everyday!')
+    res.sendfile('index.html')
 });
 app.get('/wallpaper', getWallpaper);
 

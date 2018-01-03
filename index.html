@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>new-wallpaper-everyday</title>
+</head>
+<body>
+<h1>欢迎使用new-wallpaper-everyday</h1>
+<p>get a new wallpaper every | 每天一张新壁纸</p>
+<hr>
+<h3>接口调用方法</h3>
+<p>今日壁纸：</p>
+<pre><code>    http://127.0.0.1:8888/wallpaper
+</code></pre>
+<p>另外支持参数：</p>
+<pre><code>    days_ago | int    | 查询几天前的壁纸 | n &lt;= 15
+    mkt      | string | 查询某地区的壁纸 | zh-CN(默认)/en-US
+</code></pre>
+<p>一个例子，查询en-US地区13天前的壁纸：</p>
+<pre><code>    http://127.0.0.1:8888/wallpaper?days_ago=13&amp;mkt=en-US
+</code></pre>
+<p>欢迎使用、提意见~</p>
+</body>
+</html>
