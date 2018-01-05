@@ -49,6 +49,6 @@ function getWallpaperByCondition(req, res) {
 
 function getWallpaperByRandom(req, res) {
     let days_ago = getRandomInteger(0,15);
-    let mkt = getRandomInteger(0,1) ? 'zh-CN' : 'en-US';
+    var mkt = getRandomInteger(0,1) ? 'zh-CN' : 'en-US';
     getWallpaper(res, days_ago, mkt)
 }
