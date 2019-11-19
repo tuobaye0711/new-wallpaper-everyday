@@ -14,7 +14,7 @@ const getUri = (start, number, mkt) =>
   "&mkt=" +
   mkt;
 
-const getWallpaper = (res, days_ago, mkt) => {
+const getWallpaper = (res, days_ago, mkt, type) => {
   let uri;
   if (days_ago <= 7) {
     uri = getUri(days_ago, 1, mkt);
@@ -24,6 +24,9 @@ const getWallpaper = (res, days_ago, mkt) => {
   request(uri, (error, response, body) => {
     if (!error && response.statusCode === 200) {
       let images = JSON.parse(body).images;
+      if(type==='url'){
+        return res.send({url:"https://www.bing.com" + images[images.length - 1].url});
+      }
       res.redirect("https://www.bing.com" + images[images.length - 1].url);
     } else {
       res.send("request error!");
@@ -41,6 +44,7 @@ const getWallpaperByCondition = (req, res) => {
 };
 
 const getWallpaperByRandom = (req, res) => {
+  const {type} = req.params||'';
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
@@ -49,11 +53,12 @@ const getWallpaperByRandom = (req, res) => {
   res.header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
   let days_ago = getRandomInteger(0, 15);
   var mkt = getRandomInteger(0, 1) ? "zh-CN" : "en-US";
-  getWallpaper(res, days_ago, mkt);
+  getWallpaper(res, days_ago, mkt, type);
 };
 
 app.get("/", function(req, res) {
   res.sendfile("index.html");
 });
+app.get("/wallpaper/random/:type", getWallpaperByRandom);
 app.get("/wallpaper/random", getWallpaperByRandom);
 app.get("/wallpaper", getWallpaperByCondition);
